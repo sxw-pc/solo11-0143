@@ -1,0 +1,3 @@
+[
+ {"event_id":"edition-1-conflict","op":"edition","approval_no":"SYN-001","edition":"1","predecessor":"","publisher":"publisher-a","document_hash":"doc-hX","form":"tablet","strength_mg":500,"markets":["CN"],"sections":{"scope":"h-scope-X","contraindication":"h-contra-X","storage":"h-storage-X"},"event_time":"2026-11-17T09:30:00Z"}
+]

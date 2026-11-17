@@ -1,0 +1,4 @@
+[
+ {"event_id":"sku-1","op":"sku","sku":"SKU-1","approval_no":"SYN-001","edition":"1","form":"tablet","strength":"0.5 g","market":"CN","language":"zh","event_time":"2026-11-17T09:30:00Z"},
+ {"event_id":"lot-1","op":"inventory","lot":"LOT-1","sku":"SKU-1","printed_edition":"1","units":200,"event_time":"2026-11-17T09:30:00Z"}
+]
