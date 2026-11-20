@@ -2,7 +2,7 @@
 import json,re
 from .sources import record
 from .store import rows
-from . import edition,translation
+from . import edition,translation,rulecard
 
 
 def strength_mg(value):
@@ -44,8 +44,9 @@ def decide(db,sku,as_of):
         decision='frozen';reason='market_not_authorized';doc_hash=source['document_hash']
     else:
         language=translation.decide(db,s['approval_no'],s['edition'],s['language'],as_of)
-        decision='published' if language['decision']=='released' else 'frozen'
-        reason='all_dependencies_valid' if decision=='published' else 'language_not_released'
+        card=rulecard.decide(db,s['approval_no'],s['edition'],s['language'],as_of)
+        decision='published' if language['decision']=='released' and card['decision'] in ('aligned','not_required') else 'frozen'
+        reason='all_dependencies_valid' if decision=='published' else 'language_not_released' if language['decision']!='released' else 'rule_cards_not_aligned'
         doc_hash=source['document_hash']
     old=db.execute('SELECT decision,edition,document_hash FROM label_binding WHERE sku=?',(sku,)).fetchone()
     db.execute('INSERT INTO label_binding VALUES (?,?,?,?,?) ON CONFLICT(sku) DO UPDATE SET edition=excluded.edition,document_hash=excluded.document_hash,decision=excluded.decision,reason=excluded.reason',

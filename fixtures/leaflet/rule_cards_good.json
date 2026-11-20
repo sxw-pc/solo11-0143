@@ -1,0 +1,4 @@
+[
+ {"event_id":"rule-source-1","op":"rule-card","approval_no":"SYN-001","edition":"1","language":"source","section_id":"contraindication","source_hash":"h-contra-1","rule_key":"age-band","scope":{"age_years":[0,12],"market":"CN"},"action":"exclude","event_time":"2026-11-17T09:25:00Z"},
+ {"event_id":"rule-zh-1","op":"rule-card","approval_no":"SYN-001","edition":"1","language":"zh","section_id":"contraindication","source_hash":"h-contra-1","rule_key":"age-band","scope":{"age_years":[0,12],"market":"CN"},"action":"exclude","event_time":"2026-11-17T09:26:00Z"}
+]

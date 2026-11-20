@@ -1,20 +1,20 @@
 import argparse,json
 from pathlib import Path
-from . import edition,translation,package,report
+from . import edition,translation,package,report,rulecard
 from .store import connect
 
 def main(argv=None):
     p=argparse.ArgumentParser(prog='leaflet');sp=p.add_subparsers(dest='command',required=True)
-    for name in ('init','import-source','align','map-package','report','demo'):
+    for name in ('init','import-source','align','map-package','capture-rule-cards','report','demo'):
         q=sp.add_parser(name);q.add_argument('--db',default='data/demo.sqlite')
-        if name in ('import-source','align','map-package'):q.add_argument('--input',required=True)
+        if name in ('import-source','align','map-package','capture-rule-cards'):q.add_argument('--input',required=True)
         if name=='report':q.add_argument('--as-of',required=True)
     a=p.parse_args(argv);db=connect(a.db)
     try:
         if a.command=='init':result={'initialized':True,'db':a.db}
-        elif a.command in ('import-source','align','map-package'):
+        elif a.command in ('import-source','align','map-package','capture-rule-cards'):
             events=json.loads(Path(a.input).read_text(encoding='utf-8'))
-            result={'import-source':edition,'align':translation,'map-package':package}[a.command].ingest(db,events)
+            result={'import-source':edition,'align':translation,'map-package':package,'capture-rule-cards':rulecard}[a.command].ingest(db,events)
         elif a.command=='report':result=report.decide(db,a.as_of)
         else:
             root=Path(__file__).resolve().parents[2]

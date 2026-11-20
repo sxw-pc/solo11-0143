@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS label_binding(sku TEXT PRIMARY KEY,edition TEXT NOT N
 CREATE TABLE IF NOT EXISTS publication_receipt(id INTEGER PRIMARY KEY AUTOINCREMENT,sku TEXT NOT NULL,decision TEXT NOT NULL,edition TEXT NOT NULL,document_hash TEXT,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE IF NOT EXISTS inventory_label(event_id TEXT PRIMARY KEY REFERENCES evidence(event_id),lot TEXT NOT NULL,sku TEXT NOT NULL,printed_edition TEXT NOT NULL,units INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS replacement_plan(lot TEXT PRIMARY KEY,priority INTEGER NOT NULL,decision TEXT NOT NULL,reason TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS rule_card(event_id TEXT PRIMARY KEY REFERENCES evidence(event_id),approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,section_id TEXT NOT NULL,source_hash TEXT NOT NULL,rule_key TEXT NOT NULL,scope_json TEXT NOT NULL,action TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS rule_card_verdict(approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,decision TEXT NOT NULL,reason TEXT NOT NULL,PRIMARY KEY(approval_no,edition,language));
 """
 
 def connect(path):

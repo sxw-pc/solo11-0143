@@ -1,0 +1,3 @@
+[
+ {"event_id":"rule-zh-2","op":"rule-card","approval_no":"SYN-001","edition":"1","language":"zh","section_id":"contraindication","source_hash":"h-contra-1","rule_key":"age-band","scope":{"age_years":[0,10],"market":"CN"},"action":"exclude","event_time":"2026-11-17T09:27:00Z"}
+]
