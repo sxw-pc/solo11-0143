@@ -31,6 +31,22 @@ python -m leaflet capture-rule-cards --db data/demo.sqlite --input fixtures/leaf
 
 初始化通过 `src/leaflet/store.py` 幂等建表；新增表结构应提供迁移，不得删除旧证据。未实现的边界见 `docs/initial-requirements.md`。
 
-## 结构化章节采录
+## 结构化章节采录与等义核证
 
-`capture-rule-cards` 采录虚构说明书关键章节里的结构化适用条件卡。`source` 卡与语种卡分别留存原始事件和摘要；目前只比较同键卡的条件 JSON 与结论是否逐字一致。已采到源卡时，`rule_card_verdict` 会参与现有 SKU 资料发布，语种卡缺失或条件不同就冻结资料绑定。运行 `rule_cards_good.json` 后再运行 `rule_cards_mismatch.json`，报告可见原来发布的 SKU 冻结和新的发布回执。这里的卡只用于资料版本一致性，不作临床判断。
+`capture-rule-cards` 采录虚构说明书关键章节里的结构化适用条件卡，同一章节可挂多张卡。`scope` 是作用域表达式：原子谓词为 `market`、`form`、整数年龄区间 `age_years`（上界可为 `null`，表示开放年龄尾段，不预设最大年龄），复合表达式为显式的 `all`（并）、`any`（交）、`not`（非）与带名字的 `except` 例外引用；例外定义以同入口的 `rule-exception` 事件采录。市场和剂型只能取版源已授权集合里的值，未知枚举不会被并入现有集合，而是进入待核证据。
+
+核证不再逐字比较 `scope_json` 与 `rule_key`。`src/leaflet/equivalence.py` 先把同语言、同章节、同 `rule_key` 的最新卡视为修订（输入次序和键名不影响结论），再把年龄轴按全部边界切成初等整数区间（含 `[lo, null]` 开放尾段），在版源授权市场 × 剂型 × 年龄的**整个适用域**上逐格比较源文与译文的动作函数：
+
+- 全域动作一致 → `equivalent`，证据列出每个域格上的动作；
+- 存在差异 → `different`，见证给出可重放的具体条件（市场、剂型、年龄段、两侧动作集合），译文缺卡只是动作函数为空，不再单列 `translated_rule_missing`；
+- 未知枚举、未定义或循环例外、重复例外定义、同一侧同条件相反动作 → `pending` 待核，绝不按最后写入者取胜。
+
+每次裁定都向不可变表 `rule_card_certification` 追加一行，记录输入卡摘要、适用域、差异见证和输入哈希；同输入同时点重复裁定靠哈希去重，重启可复现。旧 `rule_card_verdict` 仍是可覆盖的当前值表（沿用 `aligned`/`blocked` 词汇），报告按 `--as-of` 重算当前值，历史结论只从历史台账按时点读取，不能用今天的覆盖值冒充历史。
+
+### 接收方口径：电子资料与印刷合同
+
+- 面向单一市场的电子资料下载（`sku` 事件）只核证该 SKU 所在市场和剂型的投影域，投影通过即可发布；投影核证以 `receiver_type='sku'` 单独留痕，不会冒充全版译文等义。
+- 同一实物包装随货进入多个授权市场时，用 `map-package` 入口采录 `print-contract` 事件（含合并市场集合）；印刷资料必须证明合并范围等义，任一市场存在差异或待核证据即冻结，并写入 `print_contract_binding` 与 `contract_publication_receipt`。局部通过不能覆盖印刷资料的冻结，两类接收方各自保留核证口径与依据。
+- 源文卡撤回或版源不再可信时，后续裁定按 `edition.at` 重算为阻断，`package.decide` 同步更新 SKU 绑定；`publication_receipt` 继续只记发布状态变化，旧等义结论和依据保留在核证历史表里。
+
+`rule_cards_split.json` 演示源文 0–5、6–12 两张排除卡与译文 0–12 一张卡等义；再采 `rule_cards_extra_market.json` 后，单市场 SKU 仍可发布而双市场印刷合同冻结。这里的卡只用于资料版本一致性，不作临床判断。

@@ -1,0 +1,6 @@
+[
+ {"event_id":"tr2-scope","op":"section","approval_no":"SYN-002","edition":"1","language":"zh","section_id":"scope","source_hash":"h2-scope-1","translated_text":"合成适用范围文本","submitted_by":"alice","event_time":"2026-11-18T09:10:00Z"},
+ {"event_id":"tr2-contra","op":"section","approval_no":"SYN-002","edition":"1","language":"zh","section_id":"contraindication","source_hash":"h2-contra-1","translated_text":"合成禁忌文本","submitted_by":"alice","event_time":"2026-11-18T09:10:00Z"},
+ {"event_id":"tr2-storage","op":"section","approval_no":"SYN-002","edition":"1","language":"zh","section_id":"storage","source_hash":"h2-storage-1","translated_text":"合成贮存文本","submitted_by":"alice","event_time":"2026-11-18T09:10:00Z"},
+ {"event_id":"sign-2","op":"signoff","approval_no":"SYN-002","edition":"1","language":"zh","reviewer":"bob","source_hash":"doc-h2-1","valid_until":"2027-01-01T00:00:00Z","event_time":"2026-11-18T09:20:00Z"}
+]

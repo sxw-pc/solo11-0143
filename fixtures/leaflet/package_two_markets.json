@@ -1,0 +1,4 @@
+[
+ {"event_id":"sku-cn-2","op":"sku","sku":"SKU-CN-2","approval_no":"SYN-002","edition":"1","form":"tablet","strength":"500 mg","market":"CN","language":"zh","event_time":"2026-11-18T09:30:00Z"},
+ {"event_id":"print-1","op":"print-contract","contract_id":"PRINT-1","approval_no":"SYN-002","edition":"1","language":"zh","form":"tablet","markets":["CN","JP"],"event_time":"2026-11-18T09:31:00Z"}
+]

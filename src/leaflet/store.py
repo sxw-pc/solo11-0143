@@ -18,6 +18,11 @@ CREATE TABLE IF NOT EXISTS inventory_label(event_id TEXT PRIMARY KEY REFERENCES 
 CREATE TABLE IF NOT EXISTS replacement_plan(lot TEXT PRIMARY KEY,priority INTEGER NOT NULL,decision TEXT NOT NULL,reason TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS rule_card(event_id TEXT PRIMARY KEY REFERENCES evidence(event_id),approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,section_id TEXT NOT NULL,source_hash TEXT NOT NULL,rule_key TEXT NOT NULL,scope_json TEXT NOT NULL,action TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS rule_card_verdict(approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,decision TEXT NOT NULL,reason TEXT NOT NULL,PRIMARY KEY(approval_no,edition,language));
+CREATE TABLE IF NOT EXISTS rule_exception(event_id TEXT PRIMARY KEY REFERENCES evidence(event_id),approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,section_id TEXT NOT NULL,name TEXT NOT NULL,scope_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS rule_card_certification(id INTEGER PRIMARY KEY AUTOINCREMENT,adjudicated_at TEXT NOT NULL,approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,receiver_type TEXT NOT NULL,receiver_id TEXT NOT NULL,domain_json TEXT NOT NULL,source_summary_json TEXT NOT NULL,translated_summary_json TEXT NOT NULL,decision TEXT NOT NULL,reason TEXT NOT NULL,witnesses_json TEXT NOT NULL,input_hash TEXT NOT NULL UNIQUE);
+CREATE TABLE IF NOT EXISTS print_contract_evidence(event_id TEXT PRIMARY KEY REFERENCES evidence(event_id),contract_id TEXT NOT NULL,approval_no TEXT NOT NULL,edition TEXT NOT NULL,language TEXT NOT NULL,form TEXT NOT NULL,markets_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS print_contract_binding(contract_id TEXT PRIMARY KEY,edition TEXT NOT NULL,decision TEXT NOT NULL,reason TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS contract_publication_receipt(id INTEGER PRIMARY KEY AUTOINCREMENT,contract_id TEXT NOT NULL,decision TEXT NOT NULL,edition TEXT NOT NULL,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 """
 
 def connect(path):

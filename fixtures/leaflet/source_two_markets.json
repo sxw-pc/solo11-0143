@@ -1,0 +1,4 @@
+[
+ {"event_id":"authority-2","op":"authority","publisher":"publisher-a","approval_no":"SYN-002","valid_from":"2026-01-01T00:00:00Z","valid_until":"2027-12-31T00:00:00Z","event_time":"2026-01-01T00:00:00Z"},
+ {"event_id":"edition-2-1","op":"edition","approval_no":"SYN-002","edition":"1","predecessor":"","publisher":"publisher-a","document_hash":"doc-h2-1","form":"tablet","strength_mg":500,"markets":["CN","JP"],"sections":{"scope":"h2-scope-1","contraindication":"h2-contra-1","storage":"h2-storage-1"},"event_time":"2026-11-18T09:00:00Z"}
+]

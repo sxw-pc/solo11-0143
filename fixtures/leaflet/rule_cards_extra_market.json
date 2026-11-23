@@ -1,0 +1,3 @@
+[
+ {"event_id":"zh-jp-allow","op":"rule-card","approval_no":"SYN-002","edition":"1","language":"zh","section_id":"contraindication","source_hash":"h2-contra-1","rule_key":"jp-allow","scope":{"market":"JP"},"action":"allow","event_time":"2026-11-18T09:28:00Z"}
+]

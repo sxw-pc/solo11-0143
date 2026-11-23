@@ -1,0 +1,5 @@
+[
+ {"event_id":"src-ex-low","op":"rule-card","approval_no":"SYN-002","edition":"1","language":"source","section_id":"contraindication","source_hash":"h2-contra-1","rule_key":"age-low","scope":{"all":[{"age_years":[0,5]},{"market":"CN"}]},"action":"exclude","event_time":"2026-11-18T09:25:00Z"},
+ {"event_id":"src-ex-high","op":"rule-card","approval_no":"SYN-002","edition":"1","language":"source","section_id":"contraindication","source_hash":"h2-contra-1","rule_key":"age-high","scope":{"all":[{"age_years":[6,12]},{"market":"CN"}]},"action":"exclude","event_time":"2026-11-18T09:25:00Z"},
+ {"event_id":"zh-ex-merged","op":"rule-card","approval_no":"SYN-002","edition":"1","language":"zh","section_id":"contraindication","source_hash":"h2-contra-1","rule_key":"age-band","scope":{"all":[{"age_years":[0,12]},{"market":"CN"}]},"action":"exclude","event_time":"2026-11-18T09:26:00Z"}
+]
